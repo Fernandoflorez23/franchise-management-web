@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { AsyncPipe, NgFor, NgIf, DecimalPipe } from '@angular/common';
 import { TitleCasePipe } from '../../shared/pipes/titlecase.pipe';
 import {
@@ -36,6 +36,7 @@ export class StatsPage implements OnInit {
 
   constructor(
     private taskService: TaskService,
+    private cdr: ChangeDetectorRef,
     public firebase: FirebaseService,
   ) {
     addIcons({
@@ -52,6 +53,7 @@ export class StatsPage implements OnInit {
 
   toggleStatsFlag(): void {
     this.firebase.toggleFlagLocally('statsEnabled');
+    this.cdr.markForCheck();
   }
 
   getPriorityColor(priority: string): string {

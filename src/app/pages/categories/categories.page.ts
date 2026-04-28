@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -67,6 +67,7 @@ export class CategoriesPage implements OnInit {
     private taskService: TaskService,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
+    private cdr: ChangeDetectorRef
   ) {
     addIcons({ add, trash, pencil, close, folderOutline, colorPaletteOutline, checkmarkCircle, pricetagOutline });
   }
@@ -90,12 +91,13 @@ export class CategoriesPage implements OnInit {
     return cat.id;
   }
 
-  openNew(): void {
+openNew(): void {
     this.editingCategory = null;
     this.catName = '';
     this.catColor = CATEGORY_COLORS[0];
     this.catIcon = CATEGORY_ICONS[0];
     this.isModalOpen = true;
+    this.cdr.markForCheck(); // 3. Avisa a Angular del cambio
   }
 
   openEdit(cat: Category, sliding?: any): void {
@@ -105,13 +107,15 @@ export class CategoriesPage implements OnInit {
     this.catColor = cat.color;
     this.catIcon = cat.icon;
     this.isModalOpen = true;
+    this.cdr.markForCheck(); // 4. Avisa a Angular del cambio
   }
 
-  closeModal(): void {
+closeModal(): void {
     this.isModalOpen = false;
+    this.cdr.markForCheck(); // 5. Avisa a Angular del cambio
   }
 
-  async save(): Promise<void> {
+async save(): Promise<void> {
     if (!this.catName.trim()) return;
 
     const data: Partial<Category> = {
