@@ -1,0 +1,114 @@
+.cat-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px solid;
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+
+  .preview-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+      color: white;
+      font-size: 20px;
+    }
+  }
+
+  span {
+    font-weight: 600;
+    font-size: 16px;
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ion-color-medium);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+
+  .color-option {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &.selected {
+      box-shadow: 0 0 0 3px var(--ion-background-color), 0 0 0 5px currentColor;
+    }
+
+    .check-icon {
+      color: white;
+      font-size: 18px;
+    }
+  }
+}
+
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+
+  .icon-option {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--ion-item-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+
+    &:hover {
+      background: var(--ion-color-light);
+    }
+
+    &.selected {
+      border-color: var(--ion-color-primary);
+      background: var(--ion-color-primary-tint);
+    }
+
+    ion-icon {
+      font-size: 22px;
+      color: var(--ion-color-medium);
+    }
+  }
+}
+
+.save-btn {
+  margin-top: 24px;
+  --border-radius: 12px;
+  height: 48px;
+  font-weight: 600;
+  --background: var(--ion-color-primary);
+}

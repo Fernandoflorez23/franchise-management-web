@@ -25,7 +25,8 @@
 
     <!-- Category grid -->
     <div class="categories-grid" *ngIf="categories.length > 0">
-      <ion-item-sliding #slidingItem *ngFor="let cat of categories; trackBy: trackByCategoryId" class="animate-slide-up">
+      <ion-item-sliding #slidingItem *ngFor="let cat of categories; trackBy: trackByCategoryId"
+        class="animate-slide-up">
 
         <ion-item-options side="end">
           <ion-item-option color="danger" (click)="deleteCategory(cat, slidingItem)" expandable>
@@ -68,21 +69,16 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
 </ion-content>
 
-<!-- Add/Edit Modal -->
-<ion-modal
-  [isOpen]="isModalOpen"
-  (didDismiss)="closeModal()"
-  [breakpoints]="[0, 0.75]"
-  [initialBreakpoint]="0.75"
+<!-- Add/Edit Category Modal -->
+<ion-modal [isOpen]="isModalOpen" (didDismiss)="onModalDismiss()" [breakpoints]="[0, 0.85]" [initialBreakpoint]="0.85"
   class="category-modal">
 
   <ion-header class="ion-no-border">
     <ion-toolbar>
-      <ion-title class="modal-title">
-        {{ editingCategory ? 'Edit Category' : 'New Category' }}
-      </ion-title>
+      <ion-title>{{ editingCategory ? 'Edit Category' : 'New Category' }}</ion-title>
       <ion-buttons slot="end">
         <ion-button (click)="closeModal()" fill="clear">
           <ion-icon name="close" slot="icon-only"></ion-icon>
@@ -91,27 +87,36 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content class="ion-padding modal-content">
-    <div class="cat-preview" [style.background]="catColor + '22'" [style.border-color]="catColor">
-      <div class="preview-icon" [style.background]="catColor">
-        <ion-icon [name]="catIcon"></ion-icon>
-      </div>
-      <span [style.color]="catColor">{{ catName || 'Category name' }}</span>
-    </div>
+  <ion-content class="ion-padding">
 
     <div class="form-group">
       <label class="form-label">Name *</label>
-      <ion-input [(ngModel)]="catName" placeholder="e.g. Work..." class="custom-input"></ion-input>
+      <ion-input [(ngModel)]="catName" placeholder="Category name" class="custom-input"></ion-input>
     </div>
 
-    <ion-button
-      expand="block"
-      (click)="save()"
-      [disabled]="!catName.trim()"
-      class="save-btn"
-      [style.--background]="catColor">
-      {{ editingCategory ? 'Update' : 'Create Category' }}
-    </ion-button>
-  </ion-content>
+    <div class="form-group">
+      <label class="form-label">Color</label>
+      <div class="color-picker">
+        <div *ngFor="let c of colors" class="color-swatch" [class.selected]="catColor === c" [style.background]="c"
+          (click)="catColor = c">
+        </div>
+      </div>
+    </div>
 
-  </ion-modal>
+    <div class="form-group">
+      <label class="form-label">Icon</label>
+      <div class="icon-picker">
+        <div *ngFor="let i of icons" class="icon-option" [class.selected]="catIcon === i"
+          [style.color]="catIcon === i ? catColor : ''" (click)="catIcon = i">
+          <ion-icon [name]="i"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <ion-button expand="block" (click)="saveCategory()" [disabled]="!catName.trim()" class="save-btn"
+      style="margin-top: 1.5rem;">
+      {{ editingCategory ? 'Save Changes' : 'Create Category' }}
+    </ion-button>
+
+  </ion-content>
+</ion-modal>

@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="modal-title">
+      {{ editingCategory ? 'Edit Category' : 'New Category' }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" fill="clear">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding modal-content">
+  <!-- Preview -->
+  <div class="cat-preview" [style.background]="catColor + '22'" [style.border-color]="catColor">
+    <div class="preview-icon" [style.background]="catColor">
+      <ion-icon [name]="catIcon"></ion-icon>
+    </div>
+    <span [style.color]="catColor">{{ catName || 'Category name' }}</span>
+  </div>
+
+  <!-- Name input -->
+  <div class="form-group">
+    <label class="form-label">Name *</label>
+    <ion-input [(ngModel)]="catName" placeholder="e.g. Work..." class="custom-input"></ion-input>
+  </div>
+
+  <!-- Color selector -->
+  <div class="form-group">
+    <label class="form-label">Color</label>
+    <div class="color-grid">
+      <div
+        *ngFor="let color of colors"
+        class="color-option"
+        [style.background]="color"
+        [class.selected]="color === catColor"
+        (click)="catColor = color">
+        <ion-icon *ngIf="color === catColor" name="checkmark-circle" class="check-icon"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Icon selector -->
+  <div class="form-group">
+    <label class="form-label">Icon</label>
+    <div class="icon-grid">
+      <div
+        *ngFor="let icon of icons"
+        class="icon-option"
+        [class.selected]="icon === catIcon"
+        (click)="catIcon = icon">
+        <ion-icon [name]="icon" [style.color]="icon === catIcon ? catColor : ''"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Save button -->
+  <ion-button
+    expand="block"
+    (click)="confirm()"
+    [disabled]="!catName.trim()"
+    class="save-btn"
+    [style.--background]="catColor">
+    {{ editingCategory ? 'Update' : 'Create Category' }}
+  </ion-button>
+</ion-content>

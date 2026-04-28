@@ -64,4 +64,12 @@ export class StatsPage implements OnInit {
   getPriorityWidth(count: number, total: number): number {
     return total > 0 ? (count / total) * 100 : 0;
   }
+
+  ionViewWillEnter(): void {
+  document.body.classList.remove('backdrop-no-scroll');
+  document.querySelectorAll('ion-backdrop').forEach(el => el.remove());
+  document.querySelectorAll('ion-modal').forEach((el: any) => {
+    if (el.isOpen) el.dismiss();
+  });
+}
 }
