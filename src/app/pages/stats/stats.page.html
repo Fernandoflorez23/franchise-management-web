@@ -1,0 +1,144 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="page-title">Statistics</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container *ngIf="statsEnabled$ | async; else flagDisabled">
+    <ng-container *ngIf="stats$ | async as stats">
+
+      <div class="stats-container">
+
+        <!-- Feature flag demo banner -->
+        <div class="flag-banner">
+          <ion-icon name="sparkles"></ion-icon>
+          <span>Stats enabled via Firebase Remote Config</span>
+          <ion-button size="small" fill="clear" (click)="toggleStatsFlag()">
+            <ion-icon name="toggle-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+
+        <!-- Summary cards -->
+        <div class="summary-grid">
+          <div class="summary-card total">
+            <div class="card-value">{{ stats.total }}</div>
+            <div class="card-label">Total Tasks</div>
+          </div>
+          <div class="summary-card completed">
+            <div class="card-value">{{ stats.completed }}</div>
+            <div class="card-label">Completed</div>
+          </div>
+          <div class="summary-card pending">
+            <div class="card-value">{{ stats.pending }}</div>
+            <div class="card-label">Pending</div>
+          </div>
+          <div class="summary-card recent">
+            <div class="card-value">{{ stats.recentActivity }}</div>
+            <div class="card-label">Done this week</div>
+          </div>
+        </div>
+
+        <!-- Completion ring -->
+        <div class="ring-section">
+          <div class="ring-card">
+            <div class="ring-wrapper">
+              <svg viewBox="0 0 100 100" class="ring-svg">
+                <circle cx="50" cy="50" r="40" class="ring-bg"/>
+                <circle
+                  cx="50" cy="50" r="40"
+                  class="ring-fill"
+                  [style.stroke-dasharray]="(stats.completionRate * 251.2 / 100) + ' 251.2'"
+                  stroke-dashoffset="0"
+                  transform="rotate(-90 50 50)"/>
+              </svg>
+              <div class="ring-center">
+                <span class="ring-pct">{{ stats.completionRate }}%</span>
+                <span class="ring-sub">done</span>
+              </div>
+            </div>
+            <div class="ring-labels">
+              <div class="ring-label-item">
+                <span class="dot-success"></span>
+                <span>Completed ({{ stats.completed }})</span>
+              </div>
+              <div class="ring-label-item">
+                <span class="dot-pending"></span>
+                <span>Pending ({{ stats.pending }})</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- By Priority -->
+        <div class="section-card" *ngIf="stats.total > 0">
+          <h3 class="section-title">
+            <ion-icon name="flash-outline"></ion-icon>
+            By Priority
+          </h3>
+          <div class="bar-list">
+            <div *ngFor="let p of stats.byPriority" class="bar-row">
+              <span class="bar-label" [style.color]="getPriorityColor(p.priority)">
+                {{ p.priority | titlecase }}
+              </span>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  [style.width.%]="getPriorityWidth(p.count, stats.total)"
+                  [style.background]="getPriorityColor(p.priority)">
+                </div>
+              </div>
+              <span class="bar-count">{{ p.count }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- By Category -->
+        <div class="section-card" *ngIf="stats.byCategory.length > 0">
+          <h3 class="section-title">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            By Category
+          </h3>
+          <div class="cat-stat-list">
+            <div *ngFor="let cs of stats.byCategory" class="cat-stat-row">
+              <div class="cat-stat-header">
+                <span class="cat-dot" [style.background]="cs.categoryColor"></span>
+                <span class="cat-stat-name">{{ cs.categoryName }}</span>
+                <span class="cat-stat-count">{{ cs.completed }}/{{ cs.total }}</span>
+              </div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  [style.width.%]="cs.total > 0 ? (cs.completed / cs.total) * 100 : 0"
+                  [style.background]="cs.categoryColor">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty stats -->
+        <div class="empty-state" *ngIf="stats.total === 0">
+          <ion-icon name="stats-chart-outline"></ion-icon>
+          <h3>No data yet</h3>
+          <p>Add some tasks to see your productivity stats</p>
+        </div>
+
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <!-- Flag disabled state -->
+  <ng-template #flagDisabled>
+    <div class="flag-disabled">
+      <div class="flag-disabled-content">
+        <ion-icon name="toggle-outline"></ion-icon>
+        <h3>Stats Disabled</h3>
+        <p>This feature is currently turned off via Firebase Remote Config.</p>
+        <ion-button (click)="toggleStatsFlag()" fill="outline" color="primary">
+          Enable Stats (local demo)
+        </ion-button>
+      </div>
+    </div>
+  </ng-template>
+</ion-content>

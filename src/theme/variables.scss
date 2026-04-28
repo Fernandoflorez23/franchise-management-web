@@ -1,0 +1,92 @@
+/* TaskFlow — Design Tokens */
+/* Aesthetic: Dark Futuristic / Neo-Tokyo */
+
+:root {
+  /* Brand palette */
+  --color-accent: #6c63ff;
+  --color-accent-light: #8b83ff;
+  --color-accent-dim: rgba(108, 99, 255, 0.15);
+  --color-danger: #ff6b6b;
+  --color-success: #51cf66;
+  --color-warning: #ffd43b;
+
+  /* Dark mode (default) */
+  --color-bg: #0f0f17;
+  --color-bg-elevated: #16161f;
+  --color-surface: #1c1c28;
+  --color-surface-hover: #23232f;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-text-primary: #f0f0f8;
+  --color-text-secondary: rgba(240, 240, 248, 0.5);
+  --color-text-tertiary: rgba(240, 240, 248, 0.3);
+
+  /* Category colors */
+  --cat-color-1: #6c63ff;
+  --cat-color-2: #ff6b9d;
+  --cat-color-3: #51cf66;
+  --cat-color-4: #ffd43b;
+  --cat-color-5: #74c0fc;
+  --cat-color-6: #ff922b;
+  --cat-color-7: #da77f2;
+  --cat-color-8: #63e6be;
+
+  /* Ionic overrides */
+  --ion-background-color: var(--color-bg);
+  --ion-text-color: var(--color-text-primary);
+  --ion-toolbar-background: var(--color-bg);
+  --ion-card-background: var(--color-surface);
+  --ion-item-background: var(--color-surface);
+  --ion-border-color: var(--color-border);
+
+  --ion-color-primary: var(--color-accent);
+  --ion-color-primary-rgb: 108, 99, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #5d55e0;
+  --ion-color-primary-tint: #7b73ff;
+
+  --ion-color-secondary: #ff6b9d;
+  --ion-color-secondary-rgb: 255, 107, 157;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #e05f8a;
+  --ion-color-secondary-tint: #ff7aa7;
+
+  --ion-color-danger: #ff6b6b;
+  --ion-color-danger-rgb: 255, 107, 107;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #e05e5e;
+  --ion-color-danger-tint: #ff7a7a;
+
+  --ion-color-success: #51cf66;
+  --ion-color-success-rgb: 81, 207, 102;
+  --ion-color-success-contrast: #000000;
+  --ion-color-success-contrast-rgb: 0, 0, 0;
+  --ion-color-success-shade: #47b659;
+  --ion-color-success-tint: #62d475;
+
+  --ion-color-warning: #ffd43b;
+  --ion-color-warning-rgb: 255, 212, 59;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #e0bb34;
+  --ion-color-warning-tint: #ffd84f;
+
+  --ion-color-medium: rgba(240, 240, 248, 0.4);
+  --ion-color-light: var(--color-surface);
+}
+
+/* Light mode support */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: #f5f5fa;
+    --color-bg-elevated: #ffffff;
+    --color-surface: #ffffff;
+    --color-surface-hover: #f0f0fa;
+    --color-border: rgba(0, 0, 0, 0.08);
+    --color-text-primary: #1a1a2e;
+    --color-text-secondary: rgba(26, 26, 46, 0.55);
+    --color-text-tertiary: rgba(26, 26, 46, 0.35);
+  }
+}

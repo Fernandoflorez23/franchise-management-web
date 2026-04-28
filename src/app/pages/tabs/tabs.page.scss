@@ -1,0 +1,13 @@
+ion-tab-bar {
+  --background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+ion-tab-button {
+  --color: var(--color-text-secondary);
+  --color-selected: var(--color-accent);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2px;
+}
